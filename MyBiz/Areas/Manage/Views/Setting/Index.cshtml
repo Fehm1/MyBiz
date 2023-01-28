@@ -1,0 +1,47 @@
+﻿@model PaginatedList<Setting>
+@{
+    int count = (Model.ActivePage - 1) * Model.PageSize;
+}
+
+<div>
+    <div>
+        <h1>Setting:</h1>
+    </div>
+    <div>
+        <table class="table">
+            <tbody>
+
+                @foreach (Setting setting in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+
+                        <td class="font-weight-bold">@setting.Key</td>
+                        <td>@setting.Value</td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="setting" asp-action="update" asp-route-id="@setting.Id"><i class="bi bi-pen-fill"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @((Model.HasPrevious) ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-route-page="@(Model.ActivePage-1)">Previous</a>
+            </li>
+
+            <li class="page-item @((Model.HasNext) ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-route-page="@(Model.ActivePage+1)">Next</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>

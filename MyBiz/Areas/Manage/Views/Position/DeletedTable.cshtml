@@ -1,0 +1,60 @@
+﻿@model PaginatedList<Position>
+@{
+    int count = (Model.ActivePage - 1) * Model.PageSize;
+}
+
+<div>
+    <div class="row align-items-center">
+        <div class="col-10" style="justify-content: start">
+            <h1>Position:</h1>
+        </div>
+        <div class="col-2" style="justify-content: end">
+            <a class="btn btn-outline-danger" asp-controller="Position" asp-action="index">Go Back</a>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">FullName</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Position position in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+
+                        <td>@position.Name</td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="Position" asp-action="restore" asp-route-id="@position.Id"><i class="bi bi-arrow-clockwise"></i></a>
+                            <a class="btn btn-danger" asp-controller="Position" asp-action="harddelete" asp-route-id="@position.Id"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @((Model.HasPrevious) ? "" : "disabled")">
+                <a class="page-link" asp-action="deletedtable" asp-route-page="@(Model.ActivePage-1)">Previous</a>
+            </li>
+
+            <li class="page-item @((Model.HasNext) ? "" : "disabled")">
+                <a class="page-link" asp-action="deletedtable" asp-route-page="@(Model.ActivePage+1)">Next</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>

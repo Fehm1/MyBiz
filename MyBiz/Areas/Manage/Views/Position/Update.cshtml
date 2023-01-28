@@ -1,0 +1,20 @@
+﻿@model Position
+
+<div>
+    <div>
+        <h1>Update:</h1>
+    </div>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="mb-3 col-3">
+                <label asp-for="Name" class="form-label">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Update</button>
+            <a class="btn btn-outline-danger" asp-controller="Position" asp-action="index">Cancel</a>
+        </form>
+    </div>
+</div>

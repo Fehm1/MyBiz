@@ -1,0 +1,77 @@
+﻿@model Team
+
+<div>
+    <div>
+        <h1>Update:</h1>
+    </div>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="mb-3 col-6">
+                <label asp-for="FullName" class="form-label">Full Name</label>
+                <input asp-for="FullName" class="form-control" placeholder="FullName">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-3">
+                    <label asp-for="InstagramUrl" class="form-label">Instagram Url</label>
+                    <input asp-for="InstagramUrl" class="form-control" placeholder="Instagram Url">
+                    <span asp-validation-for="InstagramUrl" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-3">
+                    <label asp-for="FacebookUrl" class="form-label">Facebook Url</label>
+                    <input asp-for="FacebookUrl" class="form-control" placeholder="Facebook Url">
+                    <span asp-validation-for="FacebookUrl" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-3">
+                    <label asp-for="TwitterUrl" class="form-label">Twitter Url</label>
+                    <input asp-for="TwitterUrl" class="form-control" placeholder="Twitter Url">
+                    <span asp-validation-for="TwitterUrl" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-3">
+                    <label asp-for="LinkedInUrl" class="form-label">LinkedIn Url</label>
+                    <input asp-for="LinkedInUrl" class="form-control" placeholder="LinkedInUrl">
+                    <span asp-validation-for="LinkedInUrl" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 col-6">
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="mb-3 col-3">
+                    <label asp-for="ImageFormFile" class="form-label">Image</label>
+                    <input asp-for="ImageFormFile">
+                    <span asp-validation-for="ImageFormFile" class="text-danger"></span>
+                </div>
+                <div class="col-3" style="width: 100px">
+                    <img style="max-width: 50%" src="~/uploads/teams/@Model.ImageUrl" />
+                </div>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label asp-for="PositionId" class="form-label">Position</label>
+                <select asp-for="PositionId" class="form-select" aria-label="Default select example">
+                    <option selected>Choose one</option>
+
+                    @foreach (Position position in ViewBag.Positions)
+                    {
+                        <option value="@position.Id">@position.Name</option>
+                    }
+
+                </select>
+                <span asp-validation-for="PositionId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Update</button>
+            <a class="btn btn-outline-danger" asp-controller="team" asp-action="index">Cancel</a>
+        </form>
+    </div>
+</div>

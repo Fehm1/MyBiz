@@ -1,0 +1,67 @@
+﻿@model PaginatedList<Team>
+@{
+    int count = (Model.ActivePage - 1) * Model.PageSize;
+}
+}
+
+<div>
+    <div class="row align-items-center">
+        <div class="col-10" style="justify-content: start">
+            <h1>Teams:</h1>
+        </div>
+        <div class="col-2" style="justify-content: end">
+            <a class="btn btn-primary" asp-controller="team" asp-action="create">Add <i class="bi bi-plus-circle"></i></a>
+            <a class="btn btn-outline-danger" asp-controller="team" asp-action="deletedTable">Deleted <i class="bi bi-trash-fill"></i></a>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">FullName</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Team team in Model)
+                {
+                    count++;
+                    <tr>
+                        <th scope="row">@count</th>
+
+                        <td style="width: 150px">
+                            <img style="max-width: 100%" src="~/uploads/teams/@team.ImageUrl" />
+                        </td>
+
+                        <td>@team.FullName</td>
+                        <td>@team.Position.Name</td>
+                        <td>
+                            <a class="btn btn-warning" asp-controller="team" asp-action="update" asp-route-id="@team.Id"><i class="bi bi-pen-fill"></i></a>
+                            <a class="btn btn-danger" asp-controller="team" asp-action="softdelete" asp-route-id="@team.Id"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @((Model.HasPrevious) ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-route-page="@(Model.ActivePage-1)">Previous</a>
+            </li>
+
+            <li class="page-item @((Model.HasNext) ? "" : "disabled")">
+                <a class="page-link" asp-action="index" asp-route-page="@(Model.ActivePage+1)">Next</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
